@@ -334,20 +334,20 @@ export default function CareerPageContent() {
           ) : (
             <div className="relative">
               {/* Gold corner brackets — premium framing, echoes the /project tile hover accents */}
-              <div className="absolute -top-3 -left-3 w-10 h-10 border-t border-l border-accent/50 pointer-events-none hidden md:block" />
-              <div className="absolute -top-3 -right-3 w-10 h-10 border-t border-r border-accent/50 pointer-events-none hidden md:block" />
-              <div className="absolute -bottom-3 -left-3 w-10 h-10 border-b border-l border-accent/50 pointer-events-none hidden md:block" />
-              <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b border-r border-accent/50 pointer-events-none hidden md:block" />
+              <div className="absolute -top-2 -left-2 w-6 h-6 md:-top-3 md:-left-3 md:w-10 md:h-10 border-t border-l border-accent/50 pointer-events-none" />
+              <div className="absolute -top-2 -right-2 w-6 h-6 md:-top-3 md:-right-3 md:w-10 md:h-10 border-t border-r border-accent/50 pointer-events-none" />
+              <div className="absolute -bottom-2 -left-2 w-6 h-6 md:-bottom-3 md:-left-3 md:w-10 md:h-10 border-b border-l border-accent/50 pointer-events-none" />
+              <div className="absolute -bottom-2 -right-2 w-6 h-6 md:-bottom-3 md:-right-3 md:w-10 md:h-10 border-b border-r border-accent/50 pointer-events-none" />
 
               <motion.form
                 {...fadeUp}
                 viewport={{ once: true, amount: 0.05 }}
                 onSubmit={handleSubmit}
-                className="relative bg-white/40 backdrop-blur-sm border border-foreground/10 shadow-[0_40px_80px_-40px_rgba(28,36,32,0.25)] px-6 py-12 sm:px-10 md:px-16 md:py-16 flex flex-col gap-12"
+                className="relative bg-white/40 backdrop-blur-sm border border-foreground/10 shadow-[0_40px_80px_-40px_rgba(28,36,32,0.25)] px-5 py-10 sm:px-10 sm:py-12 md:px-16 md:py-16 flex flex-col gap-9 md:gap-12"
               >
                 <div>
                   <SectionHeading number="01" title="Personal Details" />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 md:gap-y-10">
                     <Field id="name" label="Applicant Name" required value={formData.name} onChange={handleChange("name")} />
                     <div className="group relative">
                       <label htmlFor="position"><FieldLabel label="Position Applied For" /></label>
@@ -355,13 +355,21 @@ export default function CareerPageContent() {
                         id="position"
                         value={formData.position}
                         onChange={handleChange("position")}
-                        className={`${inputClass} appearance-none cursor-pointer`}
+                        className={`w-full bg-transparent border-b border-foreground/25 py-3 text-[15px] pr-6 outline-none transition-colors appearance-none cursor-pointer ${formData.position ? "text-foreground" : "text-foreground/30"}`}
                       >
                         <option value="">Select a position</option>
                         {POSITIONS.map((p) => (
                           <option key={p} value={p}>{p}</option>
                         ))}
                       </select>
+                      <svg
+                        viewBox="0 0 10 6"
+                        aria-hidden="true"
+                        className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 stroke-accent"
+                        fill="none"
+                      >
+                        <path d="M1 1L5 5L9 1" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
                       <span className={sweepClass} />
                     </div>
                     <Field id="age" label="Age" type="number" value={formData.age} onChange={handleChange("age")} />
@@ -383,7 +391,7 @@ export default function CareerPageContent() {
 
                 <div>
                   <SectionHeading number="02" title="Qualification" />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 md:gap-y-10">
                     <Field id="gradCourse" label="Graduation Course" value={formData.gradCourse} onChange={handleChange("gradCourse")} />
                     <Field id="postGradCourse" label="Post Graduation Course" value={formData.postGradCourse} onChange={handleChange("postGradCourse")} />
                     <Field id="gradCollege" label="Graduation College / University" value={formData.gradCollege} onChange={handleChange("gradCollege")} />
@@ -393,7 +401,7 @@ export default function CareerPageContent() {
 
                 <div>
                   <SectionHeading number="03" title="Current Position" />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 mb-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 md:gap-y-10 mb-8 md:mb-10">
                     <Field id="currentCompany" label="Current Company Name" value={formData.currentCompany} onChange={handleChange("currentCompany")} />
                     <Field id="reasonForChange" label="Reason for Change" value={formData.reasonForChange} onChange={handleChange("reasonForChange")} />
                     <Field id="designation" label="Designation" value={formData.designation} onChange={handleChange("designation")} />
@@ -418,7 +426,7 @@ export default function CareerPageContent() {
 
                 <div>
                   <SectionHeading number="04" title="Resume & Portfolio" />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 md:gap-y-10">
                     <FileField
                       id="resume"
                       label="Resume Attachment"
@@ -445,7 +453,7 @@ export default function CareerPageContent() {
                   type="submit"
                   disabled={isSubmitting}
                   data-cursor-interact
-                  className="relative overflow-hidden group/btn inline-flex self-start px-10 py-4 md:px-14 md:py-5 uppercase tracking-[0.3em] text-[10px] md:text-[11px] font-medium bg-foreground text-ivory transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative overflow-hidden group/btn flex items-center justify-center self-stretch sm:self-start sm:inline-flex px-10 py-4 md:px-14 md:py-5 uppercase tracking-[0.3em] text-[10px] md:text-[11px] font-medium bg-foreground text-ivory transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span className="relative z-10 group-hover/btn:text-foreground transition-colors duration-500">
                     {isSubmitting ? "Submitting..." : "Submit Application"}
