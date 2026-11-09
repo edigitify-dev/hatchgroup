@@ -359,5 +359,24 @@ export const PROJECT_DETAILS: Record<string, ProjectDetail> = {
       "https://res.cloudinary.com/djicxkd9u/image/upload/v1786096373/ChatGPT_Image_Aug_7_2026_at_02_14_46_AM_dnyrol.png"
     ],
     image2: "https://res.cloudinary.com/djicxkd9u/image/upload/v1786096373/ChatGPT_Image_Aug_7_2026_at_02_13_37_AM_vt2bgj.png",
+  },
+  "22": {
+    details: "The Amber House brings together warm walnut joinery, softly veined stone, and layered lighting to give each room its own character while keeping the home visually connected. A sculptural staircase and generous openings add a sense of height and movement, while carefully composed living, dining, and family spaces make the residence feel both considered and welcoming.",
+    location: "Not specified",
+    siteArea: "Not specified",
+    projectArea: "Not specified",
+    projectType: "Residential Interior",
+    projectLanguage: "Contemporary Classic",
+    projectScope: "Interior Design",
+    images: [
+      "/newproject/WhatsApp%20Image%202026-11-09%20at%2010.57.58%20(1).jpeg",
+      "/newproject/WhatsApp%20Image%202026-11-09%20at%2010.57.57%20(3).jpeg",
+      "/newproject/WhatsApp%20Image%202026-11-09%20at%2010.57.57.jpeg",
+      "/newproject/WhatsApp%20Image%202026-11-09%20at%2010.57.58.jpeg",
+      "/newproject/WhatsApp%20Image%202026-11-09%20at%2010.57.57%20(2).jpeg",
+      "/newproject/WhatsApp%20Image%202026-11-09%20at%2010.57.57%20(1).jpeg",
+      "/newproject/WhatsApp%20Image%202026-11-09%20at%2010.57.56.jpeg"
+    ],
+    image2: "/newproject/WhatsApp%20Image%202026-11-09%20at%2010.57.58%20(1).jpeg",
   }
 };

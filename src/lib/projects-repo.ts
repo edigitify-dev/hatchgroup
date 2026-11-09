@@ -114,8 +114,9 @@ async function fetchAllProjects(): Promise<ProjectRecord[]> {
 
 /** Cached (tag "projects") read of every project, published or not — used by
  *  the admin panel. Admin mutations call revalidateTag("projects") to bust it. */
-export const getAllProjects = unstable_cache(fetchAllProjects, ["projects:all"], {
+export const getAllProjects = unstable_cache(fetchAllProjects, ["projects:all:v2"], {
   tags: ["projects"],
+  revalidate: 60,
 });
 
 /** What the public site should render. */
