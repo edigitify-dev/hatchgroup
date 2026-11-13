@@ -139,7 +139,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="flex flex-col md:flex-row justify-between items-center text-[10px] md:text-[11px] text-foreground/35 font-light tracking-wider gap-3 md:gap-0">
-          <p>&copy; {new Date().getFullYear()} Hatch Group. All rights reserved. Developed by{" "}<Link href="https://www.edigitify.in" className="hover:text-accent transition-colors duration-300">Edigitify</Link></p>
+          <p>&copy; {new Date().getFullYear()} Hatch Group. All rights reserved.</p>
           <div className="flex gap-6 md:gap-8">
             <Link href="#" className="hover:text-accent transition-colors duration-300">Privacy Policy</Link>
             <Link href="#" className="hover:text-accent transition-colors duration-300">Terms of Service</Link>
