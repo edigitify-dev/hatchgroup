@@ -143,6 +143,7 @@ export default function Footer() {
           <div className="flex gap-6 md:gap-8">
             <Link href="#" className="hover:text-accent transition-colors duration-300">Privacy Policy</Link>
             <Link href="#" className="hover:text-accent transition-colors duration-300">Terms of Service</Link>
+            <a href="http://edigitify.in/" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors duration-300">Developed by Edigitify</a>
           </div>
         </div>
       </div>
