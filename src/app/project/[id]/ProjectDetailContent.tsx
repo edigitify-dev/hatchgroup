@@ -38,7 +38,8 @@ const fadeUp = {
 };
 
 // Alternating rows: one full-bleed image, then a row of two side by side —
-// mirrors the /project listing page's masonry rhythm, images only.
+// mirrors the /project listing page's rhythm. Cards keep a consistent height
+// and images stretch to fill each card.
 function groupImages(images: string[]): string[][] {
   const groups: string[][] = [];
   let i = 0;
@@ -57,13 +58,11 @@ function GalleryImage({
   alt,
   priority = false,
   className = "relative sm:flex-1 sm:h-full overflow-hidden bg-background",
-  sizes = "(max-width: 1024px) 50vw, 33vw",
 }: {
   src: string;
   alt: string;
   priority?: boolean;
   className?: string;
-  sizes?: string;
 }) {
   const tileRef = useRef<HTMLDivElement>(null);
 
@@ -87,9 +86,7 @@ function GalleryImage({
   return (
     <div ref={tileRef} className={className}>
       <motion.div style={{ clipPath: curtainClipPath, transformOrigin: "center" }} className="sm:absolute sm:inset-0">
-        {/* Mobile: intrinsic-size image — the card's height comes from the
-            image itself (100% width, auto height), so nothing is cropped
-            or letterboxed. */}
+        {/* Mobile uses the image's natural ratio; desktop fits it inside a fixed card. */}
         <Image
           src={src}
           alt={alt}
@@ -100,14 +97,13 @@ function GalleryImage({
           className="block sm:hidden"
           priority={priority}
         />
-        {/* Desktop: fill + cover within the fixed-height row. */}
-        <div className="hidden sm:block absolute inset-0">
+        <div className="hidden sm:block absolute inset-0 bg-[#0a2119]">
           <Image
             src={src}
             alt={alt}
             fill
-            className="object-cover"
-            sizes={sizes}
+            className="object-fill"
+            sizes="(max-width: 1024px) 50vw, 33vw"
             priority={priority}
           />
         </div>
@@ -161,12 +157,12 @@ export default function ProjectDetailContent({ id, project, nextProjectId, nextP
         transition={{ duration: 0.8 }}
       >
         {/* ── 1. HERO — complete, full-bleed image, no scroll animation ── */}
-        <div className="relative w-full h-screen overflow-hidden bg-background">
+        <div className="relative w-full h-screen overflow-hidden bg-[#0a2119]">
           <Image
             src={heroImage}
             alt={project.imageAlts[heroImage] || project.title}
             fill
-            className="object-cover"
+            className="object-fill"
             sizes="100vw"
             priority
           />

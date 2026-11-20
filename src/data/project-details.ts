@@ -378,5 +378,62 @@ export const PROJECT_DETAILS: Record<string, ProjectDetail> = {
       "/newproject/WhatsApp%20Image%202026-11-09%20at%2010.57.56.jpeg"
     ],
     image2: "/newproject/WhatsApp%20Image%202026-11-09%20at%2010.57.58%20(1).jpeg",
+  },
+  "23": {
+    details: "Luxesoft Residences pairs a light contemporary palette with expressive artwork, refined stone, and bespoke joinery. Thoughtful lighting and carefully composed living spaces bring a polished, welcoming character to the home.",
+    location: "Not specified",
+    siteArea: "Not specified",
+    projectArea: "Not specified",
+    projectType: "Residential Interior",
+    projectLanguage: "Contemporary",
+    projectScope: "Interior Design",
+    images: [
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172011/hatchgroup-projects/luxesoft/luxesoft-01.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172023/hatchgroup-projects/luxesoft/luxesoft-02.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172029/hatchgroup-projects/luxesoft/luxesoft-03.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172036/hatchgroup-projects/luxesoft/luxesoft-04.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172041/hatchgroup-projects/luxesoft/luxesoft-05.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172044/hatchgroup-projects/luxesoft/luxesoft-06.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172047/hatchgroup-projects/luxesoft/luxesoft-07.png"
+    ],
+    image2: "https://res.cloudinary.com/svycmaac/image/upload/v1795172011/hatchgroup-projects/luxesoft/luxesoft-01.png",
+  },
+  "24": {
+    details: "Aurelia Residence balances warm timber, softly veined stone, and layered architectural lighting. Open living and dining spaces feel generous and composed, while the restrained palette lets the home's natural materials take focus.",
+    location: "Not specified",
+    siteArea: "Not specified",
+    projectArea: "Not specified",
+    projectType: "Residential Interior",
+    projectLanguage: "Contemporary",
+    projectScope: "Interior Design",
+    images: [
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172049/hatchgroup-projects/jagdish/jagdish-01.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172051/hatchgroup-projects/jagdish/jagdish-02.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172055/hatchgroup-projects/jagdish/jagdish-03.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172058/hatchgroup-projects/jagdish/jagdish-04.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172061/hatchgroup-projects/jagdish/jagdish-05.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172067/hatchgroup-projects/jagdish/jagdish-06.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172076/hatchgroup-projects/jagdish/jagdish-07.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172086/hatchgroup-projects/jagdish/jagdish-08.png"
+    ],
+    image2: "https://res.cloudinary.com/svycmaac/image/upload/v1795172049/hatchgroup-projects/jagdish/jagdish-01.png",
+  },
+  "25": {
+    details: "Aurum Business Centre brings a considered hospitality sensibility to the modern workplace. Private meeting suites, comfortable collaborative spaces, warm timber, and carefully layered lighting create a polished setting for focused work and thoughtful conversation.",
+    location: "Not specified",
+    siteArea: "Not specified",
+    projectArea: "Not specified",
+    projectType: "Commercial Interior",
+    projectLanguage: "Contemporary",
+    projectScope: "Interior Design",
+    images: [
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172740/hatchgroup-projects/office/office-01.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172741/hatchgroup-projects/office/office-02.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172742/hatchgroup-projects/office/office-03.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172743/hatchgroup-projects/office/office-04.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172745/hatchgroup-projects/office/office-05.png",
+      "https://res.cloudinary.com/svycmaac/image/upload/v1795172746/hatchgroup-projects/office/office-06.png"
+    ],
+    image2: "https://res.cloudinary.com/svycmaac/image/upload/v1795172740/hatchgroup-projects/office/office-01.png",
   }
 };

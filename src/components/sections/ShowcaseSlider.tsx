@@ -66,13 +66,13 @@ export default function ShowcaseSlider({ projects }: ShowcaseSliderProps) {
               animate="center"
               exit="exit"
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0"
+              className="absolute inset-0 bg-[#0a2119]"
             >
               <Image
                 src={ACTIVE_SLIDES[current].src}
                 alt={ACTIVE_SLIDES[current].title}
                 fill
-                className="object-cover"
+                className="object-fill"
                 sizes="100vw"
                 priority={current === 0}
               />

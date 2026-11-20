@@ -7,7 +7,8 @@ import { motion, useScroll, useTransform } from "motion/react";
 import type { Project } from "@/data/projects";
 
 // Alternating rows: one full-bleed image, then a row of two side by side —
-// repeating for the length of the portfolio.
+// repeating for the length of the portfolio. Cards keep a consistent height
+// and images stretch to fill each card.
 function groupProjects(projects: Project[]): Project[][] {
   const groups: Project[][] = [];
   let i = 0;
@@ -48,11 +49,9 @@ function ProjectTile({ project, index, total }: { project: Project; index: numbe
         <Link
           href={project.href}
           data-cursor-interact
-          className="group relative flex w-full sm:h-full overflow-hidden bg-background"
+          className="group relative flex w-full sm:h-full overflow-hidden bg-[#0a2119]"
         >
-          {/* Mobile: intrinsic-size image — the card's height comes from the
-              image itself (100% width, auto height), so nothing is cropped
-              or letterboxed. */}
+          {/* Mobile uses the image's natural ratio; desktop fits it inside a fixed card. */}
           <Image
             src={project.image}
             alt={project.title}
@@ -63,13 +62,12 @@ function ProjectTile({ project, index, total }: { project: Project; index: numbe
             className="block sm:hidden"
             priority={index < 3}
           />
-          {/* Desktop: fill + cover within the fixed-height row. */}
           <div className="hidden sm:block absolute inset-0">
             <Image
               src={project.image}
               alt={project.title}
               fill
-              className="object-cover"
+              className="object-fill"
               sizes="(max-width: 1024px) 50vw, 33vw"
               priority={index < 3}
             />
