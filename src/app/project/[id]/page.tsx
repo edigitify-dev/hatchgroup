@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import ProjectDetailContent from "./ProjectDetailContent";
 import { getPublishedProjects } from "@/lib/projects-repo";
 import { SITE_URL } from "@/lib/site";
+import { getProjectPhotos } from "@/lib/project-photos";
 
 type Params = Promise<{ id: string }>;
 
@@ -75,6 +76,7 @@ export default async function ProjectDetailPage(props: { params: Params }) {
   const project = projects.find((p) => p.slug === params.id) ?? projects[0];
   const currentIndex = projects.indexOf(project);
   const nextProject = projects[(currentIndex + 1) % projects.length];
+  const photos = await getProjectPhotos(project);
 
   return (
     <>
@@ -105,6 +107,7 @@ export default async function ProjectDetailPage(props: { params: Params }) {
           images: project.images,
           image2: project.heroImage,
           imageAlts: project.imageAlts ?? {},
+          photos,
         }}
         nextProjectId={nextProject.slug}
         nextProject={{ category: nextProject.category }}

@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Footer from "@/components/sections/Footer";
+import ProjectImage from "@/components/ProjectImage";
+import { groupProjectPhotos, selectProjectPhoto, type ProjectPhoto } from "@/lib/project-image-layout";
 
 interface ProjectDetailContentProps {
   id: string;
@@ -23,6 +24,7 @@ interface ProjectDetailContentProps {
     images: string[];
     image2: string;
     imageAlts: Record<string, string>;
+    photos: ProjectPhoto[];
   };
   nextProjectId: string;
   nextProject: {
@@ -37,32 +39,14 @@ const fadeUp = {
   transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] as const },
 };
 
-// Alternating rows: one full-bleed image, then a row of two side by side —
-// mirrors the /project listing page's rhythm. Cards keep a consistent height
-// and images stretch to fill each card.
-function groupImages(images: string[]): string[][] {
-  const groups: string[][] = [];
-  let i = 0;
-  let wide = true;
-  while (i < images.length) {
-    const size = wide ? 1 : 2;
-    groups.push(images.slice(i, i + size));
-    i += size;
-    wide = !wide;
-  }
-  return groups;
-}
-
 function GalleryImage({
   src,
   alt,
-  priority = false,
-  className = "relative sm:flex-1 sm:h-full overflow-hidden bg-background",
+  sizes,
 }: {
   src: string;
   alt: string;
-  priority?: boolean;
-  className?: string;
+  sizes: string;
 }) {
   const tileRef = useRef<HTMLDivElement>(null);
 
@@ -84,29 +68,9 @@ function GalleryImage({
   );
 
   return (
-    <div ref={tileRef} className={className}>
-      <motion.div style={{ clipPath: curtainClipPath, transformOrigin: "center" }} className="sm:absolute sm:inset-0">
-        {/* Mobile uses the image's natural ratio; desktop fits it inside a fixed card. */}
-        <Image
-          src={src}
-          alt={alt}
-          width={0}
-          height={0}
-          sizes="100vw"
-          style={{ width: "100%", height: "auto" }}
-          className="block sm:hidden"
-          priority={priority}
-        />
-        <div className="hidden sm:block absolute inset-0 bg-[#0a2119]">
-          <Image
-            src={src}
-            alt={alt}
-            fill
-            className="object-fill"
-            sizes="(max-width: 1024px) 50vw, 33vw"
-            priority={priority}
-          />
-        </div>
+    <div ref={tileRef} className="relative aspect-[4/5] min-w-0 sm:aspect-auto sm:flex-1 sm:h-full overflow-hidden rounded-sm bg-background">
+      <motion.div style={{ clipPath: curtainClipPath, transformOrigin: "center" }} className="absolute inset-0">
+        <ProjectImage src={src} alt={alt} sizes={sizes} />
       </motion.div>
     </div>
   );
@@ -132,12 +96,10 @@ export default function ProjectDetailContent({ id, project, nextProjectId, nextP
     }, 1000);
   };
 
-  const heroImage = project.image2 || project.images[0];
-  let galleryImages = project.images.filter((src) => src !== heroImage);
-  if (galleryImages.length === 0 && project.images.length > 0) {
-    galleryImages = [heroImage];
-  }
-  const galleryRows = groupImages(galleryImages);
+  const heroImage = selectProjectPhoto(project.photos, 8 / 5).src;
+  const mobileHeroImage = selectProjectPhoto(project.photos, 4 / 5).src;
+  const galleryPhotos = project.photos.filter((photo) => photo.src !== heroImage);
+  const galleryRows = groupProjectPhotos(galleryPhotos.length ? galleryPhotos : project.photos);
 
   const infoRows: Array<[string, string]> = [
     ["Location", project.location],
@@ -156,15 +118,14 @@ export default function ProjectDetailContent({ id, project, nextProjectId, nextP
         animate={{ opacity: isExiting ? 0.5 : 1 }}
         transition={{ duration: 0.8 }}
       >
-        {/* ── 1. HERO — complete, full-bleed image, no scroll animation ── */}
-        <div className="relative w-full h-screen overflow-hidden bg-[#0a2119]">
-          <Image
+        {/* ── 1. HERO — responsive, edge-to-edge photograph, no scroll animation ── */}
+        <div className="relative w-full h-svh overflow-hidden bg-[#0a2119]">
+          <ProjectImage
             src={heroImage}
-            alt={project.imageAlts[heroImage] || project.title}
-            fill
-            className="object-fill"
+            mobileSrc={mobileHeroImage}
+            alt={project.title}
             sizes="100vw"
-            priority
+            preload
           />
         </div>
 
@@ -208,13 +169,13 @@ export default function ProjectDetailContent({ id, project, nextProjectId, nextP
         {/* ── 3. GALLERY — image only, same alternating full/split rows as /project ── */}
         <div className="relative w-full flex flex-col gap-1 md:gap-1.5 px-4 md:px-8 lg:px-12 py-4 md:py-6">
           {galleryRows.map((row, ri) => (
-            <div key={ri} className="flex flex-col sm:flex-row w-full gap-1 md:gap-1.5 sm:h-[70vh] md:h-[88vh]">
-              {row.map((src, ii) => (
+            <div key={ri} className="flex flex-col sm:flex-row w-full gap-1 md:gap-1.5 sm:aspect-[8/5]">
+              {row.map(({ src }, ii) => (
                 <GalleryImage
                   key={src}
                   src={src}
                   alt={project.imageAlts[src] || `${project.title} — photo ${ri * 2 + ii + 1}`}
-                  className="relative sm:flex-1 sm:h-full overflow-hidden rounded-sm bg-background"
+                  sizes={row.length === 1 ? "100vw" : "(min-width: 640px) 50vw, 100vw"}
                 />
               ))}
             </div>

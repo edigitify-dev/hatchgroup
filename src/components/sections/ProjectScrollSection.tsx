@@ -1,14 +1,14 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "motion/react";
 import type { Project } from "@/data/projects";
+import ProjectImage from "@/components/ProjectImage";
 
-// Alternating rows: one full-bleed image, then a row of two side by side —
+// Alternating rows: one wide card, then a row of two side by side —
 // repeating for the length of the portfolio. Cards keep a consistent height
-// and images stretch to fill each card.
+// and retain each project's original cover photograph.
 function groupProjects(projects: Project[]): Project[][] {
   const groups: Project[][] = [];
   let i = 0;
@@ -22,7 +22,7 @@ function groupProjects(projects: Project[]): Project[][] {
   return groups;
 }
 
-function ProjectTile({ project, index, total }: { project: Project; index: number; total: number }) {
+function ProjectTile({ project, index, total, sizes }: { project: Project; index: number; total: number; sizes: string }) {
   const num = String(index + 1).padStart(2, "0");
 
   const tileRef = useRef<HTMLDivElement>(null);
@@ -44,34 +44,19 @@ function ProjectTile({ project, index, total }: { project: Project; index: numbe
   );
 
   return (
-    <div ref={tileRef} className="relative sm:flex-1 sm:h-full">
-      <motion.div style={{ clipPath: curtainClipPath, transformOrigin: "center" }} className="sm:h-full">
+    <div ref={tileRef} className="relative aspect-[4/5] min-w-0 sm:aspect-auto sm:flex-1 sm:h-full">
+      <motion.div style={{ clipPath: curtainClipPath, transformOrigin: "center" }} className="h-full">
         <Link
           href={project.href}
           data-cursor-interact
-          className="group relative flex w-full sm:h-full overflow-hidden bg-[#0a2119]"
+          className="group relative flex w-full h-full overflow-hidden bg-[#0a2119]"
         >
-          {/* Mobile uses the image's natural ratio; desktop fits it inside a fixed card. */}
-          <Image
+          <ProjectImage
             src={project.image}
             alt={project.title}
-            width={0}
-            height={0}
-            sizes="100vw"
-            style={{ width: "100%", height: "auto" }}
-            className="block sm:hidden"
-            priority={index < 3}
+            sizes={sizes}
+            preload={index === 0}
           />
-          <div className="hidden sm:block absolute inset-0">
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-fill"
-              sizes="(max-width: 1024px) 50vw, 33vw"
-              priority={index < 3}
-            />
-          </div>
           <div
             className="hidden sm:block absolute inset-0 bg-[#000f0b]/60 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           />
@@ -143,19 +128,24 @@ export default function ProjectScrollSection({ projects }: { projects: Project[]
         </h2>
       </div>
 
-      {/* Alternating full-bleed / split rows — each row uses the full
-          viewport-scaled height, whether it holds one image or two. */}
+      {/* Consistent row proportions keep crops predictable across screen sizes. */}
       <div className="relative z-10 w-full flex flex-col gap-1 px-4 md:px-8 lg:px-12">
         {rows.map((row, ri) => {
           const tiles = row.map((project) => {
             const tile = (
-              <ProjectTile key={project.id} project={project} index={runningIndex} total={total} />
+              <ProjectTile
+                key={project.id}
+                project={project}
+                index={runningIndex}
+                total={total}
+                sizes={row.length === 1 ? "100vw" : "(min-width: 640px) 50vw, 100vw"}
+              />
             );
             runningIndex += 1;
             return tile;
           });
           return (
-            <div key={ri} className="flex flex-col sm:flex-row w-full gap-1 sm:h-[70vh] md:h-[88vh]">
+            <div key={ri} className="flex flex-col sm:flex-row w-full gap-1 sm:aspect-[8/5]">
               {tiles}
             </div>
           );
