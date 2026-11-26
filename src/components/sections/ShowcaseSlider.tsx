@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
+import ProjectImage from "@/components/ProjectImage";
 
 import type { Project } from "@/data/projects";
 
@@ -68,13 +68,11 @@ export default function ShowcaseSlider({ projects }: ShowcaseSliderProps) {
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               className="absolute inset-0 bg-[#0a2119]"
             >
-              <Image
+              <ProjectImage
                 src={ACTIVE_SLIDES[current].src}
                 alt={ACTIVE_SLIDES[current].title}
-                fill
-                className="object-fill"
                 sizes="100vw"
-                priority={current === 0}
+                preload={current === 0}
               />
             </motion.div>
           </AnimatePresence>
